@@ -31,7 +31,7 @@ class MySqlConnection
 
     private static function loadConfig(): void
     {
-        $configPath = __DIR__ . '/../../../config.ini';
+        $configPath = __DIR__ . '/../../config.ini';
 
         if (!file_exists($configPath)) {
             throw new \Exception("Le fichier de configuration config.ini est introuvable : " . $configPath);

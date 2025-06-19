@@ -15,7 +15,6 @@ class StudentController
         $messageType = 'success';
         $editStudent = null;
 
-        // Traitement des actions POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $action = $_POST['action'];
 
@@ -42,7 +41,6 @@ class StudentController
             }
         }
 
-        // Récupération de tous les étudiants pour l'affichage
         try {
             $students = $this->service->getStudents();
         } catch (\Exception $e) {
@@ -51,7 +49,6 @@ class StudentController
             $messageType = 'error';
         }
 
-        // Inclusion de la vue
         include __DIR__ . "/../view/studentView.php";
     }
 
@@ -60,7 +57,7 @@ class StudentController
         $this->validateStudentData($_POST);
 
         $student = new Student(
-            null, // L'ID sera généré automatiquement
+            null,
             $_POST['firstname'],
             $_POST['lastname'],
             $_POST['date_of_birth'],
@@ -115,12 +112,10 @@ class StudentController
             throw new \Exception('Tous les champs sont obligatoires');
         }
 
-        // Validation de l'email
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             throw new \Exception('Format d\'email invalide');
         }
 
-        // Validation de la date
         if (!$this->isValidDate($data['date_of_birth'])) {
             throw new \Exception('Format de date invalide (AAAA-MM-JJ requis)');
         }
@@ -132,13 +127,11 @@ class StudentController
         return $d && $d->format('Y-m-d') === $date;
     }
 
-    // Méthode pour récupérer un étudiant spécifique (pour la modification)
     public function getStudentById(int $id): ?Student
     {
         return $this->service->getStudentById($id);
     }
 
-    // Méthode pour l'affichage par nom (si nécessaire)
     public function displayByName(string $name)
     {
         try {

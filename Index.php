@@ -39,7 +39,7 @@ use src\service\LogService;
 
 try {
     $studentRepository = new StudentRepository();
-    $logRepository = new LogRepository(); // Votre LogRepository MongoDB existant
+    $logRepository = new LogRepository();
     $studentService = new StudentService($studentRepository, $logRepository);
     $controller = new StudentController($studentService);
 
@@ -58,7 +58,6 @@ try {
                 break;
         }
     } else {
-        // Affichage par défaut
         $controller->displayStudents();
     }
 
